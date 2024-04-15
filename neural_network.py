@@ -63,10 +63,10 @@ Where:
 def initialization_parameters():
 
     '''
-    --np.random.randn(10, 784) will create weights for 10 neuron that correspond to 784 connection
-    --If we want to add more neuron we can change the number 10
+    np.random.randn(10, 784) will create weights for 10 neuron that correspond to 784 connection
+    If we want to add more neuron we can change the number 10
 
-    --We initialize our weight using He initialization
+    We initialize our weight using He initialization
 
     '''
     
