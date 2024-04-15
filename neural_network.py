@@ -60,6 +60,7 @@ Where:
 
 '''
 
+
 def initialization_parameters():
 
     '''
@@ -86,6 +87,7 @@ def ReLu(Z1):
 
     return np.maximum(Z1, 0)
 
+
 def softmax(Z2):
 
     '''
@@ -96,7 +98,8 @@ def softmax(Z2):
 
     A = np.exp(Z2)/sum(np.exp(Z2))
     return A
-            
+
+
 def forward_propagation(X, W1, b1, W2, b2):
 
     '''
@@ -128,6 +131,7 @@ def derivative_of_relu(Z1):
     '''
 
     return Z1 > 0
+
 
 def one_hot_encoding(Y, num_classes):
 
@@ -198,6 +202,7 @@ def gradient_descent(W1, b1, W2, b2, dW1, db1, dW2, db2, learning_rate):
 
     return W1, b1, W2, b2
 
+
 def predict(Y_hat):
 
     '''
@@ -206,6 +211,7 @@ def predict(Y_hat):
 
     '''
     return np.argmax(Y_hat, 0)
+
 
 def accuracy(Y_hat, Y):
 
@@ -220,6 +226,7 @@ def accuracy(Y_hat, Y):
     '''
 
     return np.sum(Y_hat == Y) / Y.size
+
 
 def fit(X, Y, learning_rate, iteration):
 
@@ -254,6 +261,7 @@ def fit(X, Y, learning_rate, iteration):
             print("")
     return W1, b1, W2, b2
 
+
 def test_accuracy(X_test, Y_test, W1, b1, W2, b2):
 
     '''
@@ -269,6 +277,7 @@ def test_accuracy(X_test, Y_test, W1, b1, W2, b2):
     test_accuracy = accuracy(Y_pred, Y_test)
     print(f"Test accuracy: {test_accuracy*100}%")
 
+
 def make_predictions(X, W1, b1, W2, b2):
 
     '''
@@ -277,6 +286,7 @@ def make_predictions(X, W1, b1, W2, b2):
     _, _, _, Y_pred = forward_propagation(X, W1, b1, W2, b2)
     predictions = predict(Y_pred)
     return predictions
+
 
 def test_prediction(index, W1, b1, W2, b2):
     
