@@ -31,12 +31,11 @@ Y_train will be our training label (0,1,2...10)
 X_train will be our feature vectors (pixel value)
 
 '''
+
 data_train = data[2000:m].T # transpose the matrix so all the label will be in the first row
 Y_train = data_train[0] # take the first row as training label
 X_train = data_train[1:n] # take the second row (which is the first pixel) until the 785th pixel
 X_train = X_train / 255. # rescale the pixel value between 0-1
-
-
 
 '''
 Our Neural Network will have 1 Input layer which is the 784 pixel input and each input will map to a neuron
