@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
-import random
 from loss_function import L2_loss
 
 data = pd.read_csv('mnist_digits.csv')
@@ -9,33 +8,35 @@ data = pd.read_csv('mnist_digits.csv')
 # convert the data into numpy array for processing
 data = np.array(data)
 
+# shuffle 80% of the data for training set
+data = data.sample(frac=0.8)
+
 m, n = data.shape
 
 '''
-This will be our test set, which will contain 500 instances
-
-Y_test will be our training label (0,1,2...10)
-X_test will be our feature vectors (pixel value)
-
-'''
-
-data_test = data[0:2000].T # our test set will be 500 instances and again we transpose it so our label will be the first row
-Y_test = data_test[0]
-X_test = data_test[1:n]
-X_test = X_test / 255.
-
-'''
-This will be our training set, which will contain 1000 instances
+This will be our training set, which will contain 80% instances of the total instances
 
 Y_train will be our training label (0,1,2...10)
 X_train will be our feature vectors (pixel value)
 
 '''
+data_train = data[0:int(len(data) * 0.8)].T # our train set will be 80% instances and again we transpose it so our label will be the first row
+Y_train = data_train[0]
+X_train = data_train[1:n]
+X_train = X_train / 255.
 
-data_train = data[2000:m].T # transpose the matrix so all the label will be in the first row
-Y_train = data_train[0] # take the first row as training label
-X_train = data_train[1:n] # take the second row (which is the first pixel) until the 785th pixel
-X_train = X_train / 255. # rescale the pixel value between 0-1
+
+'''
+This will be our test set, which will contain 20% instances of the total instnaces
+
+Y_test will be our training label (0,1,2...10)
+X_test will be our feature vectors (pixel value)
+
+'''
+data_test = data[int(len(data) * 0.8):m].T # transpose the matrix so all the label will be in the first row
+Y_test = data_test[0] # take the first row as training label
+X_test = data_test[1:n] # take the second row (which is the first pixel) until the 785th pixel
+X_test = X_test / 255. # rescale the pixel value between 0-1
 
 '''
 Our Neural Network will have 1 Input layer which is the 784 pixel input and each input will map to a neuron
