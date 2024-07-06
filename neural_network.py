@@ -165,12 +165,12 @@ def backward_propagation(Z1, A1, W2, Y_hat, X, Y):
 
     '''
 
-    dL2_loss = (Y_hat - Y)*2 
-    dW2 = ( np.dot(dL2_loss, A1.T) ) / m
-    db2 = ( np.sum(dL2_loss) ) / m
+    dL2_loss = (Y_hat - Y)*2  # (U^n)' = n.U
+    dW2 = ( np.dot(dL2_loss, A1.T) ) / (2*m) # 1/2.m * ((Y_hat - Y ) * 2.X_input)
+    db2 = ( np.sum(dL2_loss) ) / (2*m)  # 1/2.m * (Y_hat - Y).2
     dZ1 = W2.T.dot(dL2_loss) * derivative_of_relu(Z1)
-    dW1 = ( dZ1.dot(X.T) ) / m
-    db1 = ( np.sum(dZ1) ) / m
+    dW1 = ( dZ1.dot(X.T) ) / (2*m)
+    db1 = ( np.sum(dZ1) ) / (2*m)
 
     return dW2, db2, dW1, db1
     
