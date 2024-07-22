@@ -229,7 +229,7 @@ def accuracy(Y_hat, Y):
     return np.sum(Y_hat == Y) / Y.size
 
 
-def fit(X=None, Y=None, learning_rate=0.001, iteration=10, batch_size=64):
+def fit(X=None, Y=None, learning_rate=0.001, epochs=10, batch_size=64):
 
     '''
     This function will fit the model with the X, Y, learning_rate and number of the iteration
@@ -252,7 +252,9 @@ def fit(X=None, Y=None, learning_rate=0.001, iteration=10, batch_size=64):
 
     W1, b1, W2, b2 = initialization_parameters() # Weights and biases initialization
 
-    for i in range(1, iteration+1):
+    iterations = 0 # Total number of bacthes needed to complete 1 epochs
+    
+    for i in range(1, epochs+1):
 
         X_mini_batch = []
         Y_mini_batch = []
@@ -268,10 +270,13 @@ def fit(X=None, Y=None, learning_rate=0.001, iteration=10, batch_size=64):
             dW2, db2, dW1, db1 = backward_propagation(Z1, A1, W2, Y_hat, X_mini_batch.T, Y_mini_batch.T)
             W1, b1, W2, b2 = gradient_descent(W1, b1, W2, b2, dW1, db1, dW2, db2, learning_rate) # run mini-batch gradient descent
 
+            iterations+=1
+
         if i % 10 == 0:
             # find the prediction over the entire dataset to calculate its accuracy
             _, _, _, Y_hat = forward_propagation(X, W1, b1, W2, b2) 
-            print("Iteration:", i)
+            print("Epochs:", i)
+            print("Iterations: ", iterations)
             print(f"accuracy: {accuracy(predict(Y_hat), Y)*100}%")
             print("Loss:", L2_loss(Y_true, Y_hat))
             print("")
