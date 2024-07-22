@@ -3,6 +3,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from loss_function import L2_loss
 
+np.random.seed(0) # Set seed for reproducibility
+
 data = pd.read_csv('mnist_digits.csv')
 
 # convert the data into numpy array for processing
@@ -229,7 +231,7 @@ def accuracy(Y_hat, Y):
     return np.sum(Y_hat == Y) / Y.size
 
 
-def fit(X, Y, learning_rate, iteration):
+def fit(X=None, Y=None, learning_rate=0.001, epochs=10, batch_size=64):
 
     '''
     This function will fit the model with the X, Y, learning_rate and number of the iteration
@@ -251,15 +253,36 @@ def fit(X, Y, learning_rate, iteration):
     Y_true = one_hot_encoding(Y,10)
 
     W1, b1, W2, b2 = initialization_parameters() # Weights and biases initialization
-    for i in range(iteration):
-        Z1, A1, Z2, Y_hat = forward_propagation(X, W1, b1, W2, b2)
-        dW2, db2, dW1, db1 = backward_propagation(Z1, A1, W2, Y_hat, X, Y_true)
-        W1, b1, W2, b2 = gradient_descent(W1, b1, W2, b2, dW1, db1, dW2, db2, learning_rate)
+
+    iterations = 0 # Total number of bacthes needed to complete 1 epochs
+    
+    for i in range(1, epochs+1):
+
+        X_mini_batch = []
+        Y_mini_batch = []
+
+        # implementing mini-batches
+        for batch in range(0, X.shape[1], batch_size):
+            # flip the data and split it into n batches
+            X_mini_batch = X.T[i : i + batch_size] # if batch size = 64. 0-63, 64-127, 129-191
+            Y_mini_batch = Y_true.T[i : i + batch_size] 
+
+            # flip the data back for calculation
+            Z1, A1, Z2, Y_hat = forward_propagation(X_mini_batch.T, W1, b1, W2, b2) # pass the first batch of training set
+            dW2, db2, dW1, db1 = backward_propagation(Z1, A1, W2, Y_hat, X_mini_batch.T, Y_mini_batch.T)
+            W1, b1, W2, b2 = gradient_descent(W1, b1, W2, b2, dW1, db1, dW2, db2, learning_rate) # run mini-batch gradient descent
+
+            iterations+=1
+
         if i % 10 == 0:
-            print("Iteration:", i)
+            # find the prediction over the entire dataset to calculate its accuracy
+            _, _, _, Y_hat = forward_propagation(X, W1, b1, W2, b2) 
+            print("Epochs:", i)
+            print("Iterations: ", iterations)
             print(f"accuracy: {accuracy(predict(Y_hat), Y)*100}%")
             print("Loss:", L2_loss(Y_true, Y_hat))
             print("")
+
     return W1, b1, W2, b2
 
 
