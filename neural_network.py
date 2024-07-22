@@ -3,6 +3,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from loss_function import L2_loss
 
+np.random.seed(0) # Set seed for reproducibility
+
 data = pd.read_csv('mnist_digits.csv')
 
 # convert the data into numpy array for processing
