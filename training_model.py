@@ -5,6 +5,7 @@ import numpy as np
 # Fitting the model with the train set and run it for 100 epochs over the entire dataset
 W1, b1, W2, b2 = fit(X=X_train, Y=Y_train, learning_rate=0.3, Epochs=100, batch_size=192)
 
+# Find amount of tunable parameters
 layer_1 = np.count_nonzero(W1) + np.count_nonzero(b1)
 layer_2 = np.count_nonzero(W2) + np.count_nonzero(b2)
 print(f"Layer 1 parameters: {layer_1}")
