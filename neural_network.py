@@ -241,7 +241,8 @@ def fit(X=None, Y=None, learning_rate=0.001, epochs=10, batch_size=64):
     --X the features of the train set
     --Y the labels of the train set
     --learning_rate the amount of steps to take in the opposite of the gradient
-    --iteration number of times to iterate over the set
+    --epochs number of times the model is trained over
+    --iterations number of times it takes to run over the entire set (to complete 1 epochs)
 
     --W1 the new set of weights for the first layer
     --b1 the new set of biases for the first layer
@@ -254,7 +255,7 @@ def fit(X=None, Y=None, learning_rate=0.001, epochs=10, batch_size=64):
 
     W1, b1, W2, b2 = initialization_parameters() # Weights and biases initialization
 
-    iterations = 0 # Total number of bacthes needed to complete 1 epochs
+    iterations = 0 # The cycle it takes to complete 1 epochs
     
     for i in range(1, epochs+1):
 
