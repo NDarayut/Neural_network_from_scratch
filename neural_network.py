@@ -264,8 +264,8 @@ def fit(X=None, Y=None, learning_rate=0.001, epochs=10, batch_size=64):
         # implementing mini-batches
         for batch in range(0, X.shape[1], batch_size):
             """
-            Mini-batch gradient descent is a modified version of gradient where it utilize batches of data to compute the loss
-            instead of computing the loss for each training example or compute the loss over the entire set at once.
+            Mini-batch gradient descent is a modified version of batch and stochastic gradient descent where it utilize batches 
+            of data to compute the loss instead of computing the loss for each training example or compute the loss over the entire set at once.
             e.g batch_size = 16 means the algorithm will compute the loss after forward propagating 16 instances of data.
             """
             # flip the data and split it into n batches
